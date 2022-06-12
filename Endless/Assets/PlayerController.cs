@@ -7,7 +7,12 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
-    
+    public ScoreManager scoreManager;
+
+    // [SerializeField]
+    // public PauseMenu pauseMenu; 
+
+    [SerializeField]
     public Rigidbody2D rb;
 
     public float moveSpeed = 5;
@@ -50,17 +55,27 @@ public class PlayerController : MonoBehaviour
 
     }
 
-
-
-
-    // void OnTriggerEnter2D(Collider2D other)
+    // void DestroyPauseMenu()
     // {
-    //     if(other.gameObject.CompareTag("Obstacle"))
+    //     if (GameObject.Find("PauseMenu") != null)
     //     {
-    //         Destroy(gameObject);
-    //         SceneManager.LoadScene("DeathScreen");
+    //         PauseMenu.Instance = null;
+    //         Destroy(GameObject.Find("PauseMenu"));
     //     }
     // }
+
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.gameObject.CompareTag("Obstacle"))
+        {
+            // DestroyPauseMenu();
+            Destroy(gameObject);
+            scoreManager.isCounting = false;
+            SceneManager.LoadScene("DeathScreen");
+            
+        }
+    }
 
 }
 

@@ -5,12 +5,23 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
+
     [SerializeField]
     public GameObject pauseMenu;
 
     public static bool isPaused;
 
 
+    public static PauseMenu Instance;
+
+    void DestroyGameManager()
+    {
+        if (GameObject.Find("GameManager") != null)
+        {
+            PauseMenu.Instance = null;
+            Destroy(GameObject.Find("GameManager"));
+        }
+    }
     
     // Start is called before the first frame update
     void Start()
@@ -25,6 +36,9 @@ public class PauseMenu : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Escape))
         {
+            if (SceneManager.GetActiveScene().name == "Level0" ||
+            SceneManager.GetActiveScene().name == "Level1")
+            {
             if(isPaused)
             {
                 ResumeGame();
@@ -32,6 +46,7 @@ public class PauseMenu : MonoBehaviour
             else
             {
                 PauseGame();
+            }
             }
         }
     }
@@ -53,6 +68,7 @@ public class PauseMenu : MonoBehaviour
 
     public void GoToMainMenu()
     {
+        DestroyGameManager();
         Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
     }

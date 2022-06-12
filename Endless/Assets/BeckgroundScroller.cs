@@ -41,7 +41,6 @@ public class BeckgroundScroller : MonoBehaviour
             ResetObstacle();
 
         }
-
         elapsedTime += Time.deltaTime;
 
         rb.velocity = new Vector2(0,scrollSpeed - elapsedTime);

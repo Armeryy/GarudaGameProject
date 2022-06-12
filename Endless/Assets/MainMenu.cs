@@ -24,8 +24,20 @@ public class MainMenu : MonoBehaviour
     }
 
 
+    void DestroyScoreManager()
+    {
+            if (GameObject.Find("Score") != null)
+            {
+                ScoreManager.Instance = null;
+               Destroy(GameObject.Find("Score"));
+            }
+
+
+    }
+
     public void PlayLevel0()
     {
+        DestroyScoreManager();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
